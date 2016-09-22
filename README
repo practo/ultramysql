@@ -6,5 +6,4 @@ Compatible with gevent through monkey patching
 Requires Python (http://www.python.org) 
 
 :: Installation ::
-python setup.py build install
-
+pip3.4 install -e git+https://github.com/practo/ultramysql.git@python3#egg=umysql
