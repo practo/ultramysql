@@ -1357,6 +1357,14 @@ PyObject *Connection_close(Connection *self, PyObject *notused)
   Py_RETURN_NONE;
 }
 
+PyObject *Connection_rollback(Connection *self) {
+    if (!UMConnection_IsConnected(self->conn)) {
+        return PyErr_Format(PyExc_RuntimeError, "Not connected");
+    }
+    // TODO: Implement Rollback here^M
+    // When Auto Commit is false this wont work!^M
+    Py_RETURN_NONE;
+}
 
 static void Connection_Destructor(Connection *self)
 {
@@ -1368,6 +1376,7 @@ static PyMethodDef Connection_methods[] = {
   {"connect", (PyCFunction)			Connection_connect,			METH_VARARGS, "Connects to database server. Arguments: host, port, username, password, database, autocommit, charset"},
   {"query", (PyCFunction)				Connection_query,				METH_VARARGS, "Performs a query. Arguments: query, arguments to escape"},
   {"close", (PyCFunction)	Connection_close,	METH_NOARGS, "Closes connection"},
+  {"rollback", (PyCFunction)	Connection_rollback,	METH_NOARGS, "Rollback"},
   {"is_connected", (PyCFunction) Connection_isConnected, METH_NOARGS, "Check connection status"},
   {"settimeout", (PyCFunction) Connection_setTimeout, METH_VARARGS, "Sets connection timeout in seconds"},
   {NULL}
